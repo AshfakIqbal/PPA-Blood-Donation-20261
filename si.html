@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="si">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Annual Blood Donation Camp 2026 organized by PPA of Kalugamuwa Central College with National Blood Transfusion Service.">
+  <title>Blood Donation Camp 2026 | PPA Kalugamuwa Central College</title>
+
+  <!-- Google Fonts: Noto Sans Sinhala, Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="lang-si">
+
+  <!-- Audio Background (Gentle Ambient) -->
+  <audio id="bgAudio" loop preload="none">
+    <source src="assets/heartbeat-ambient.wav" type="audio/wav">
+  </audio>
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="logos-group">
+        <img src="assets/kcc-school-crest.png" alt="KCC Crest" class="crest-img">
+        <img src="assets/ppa-kcc-shield-large.png" alt="PPA KCC Crest" class="crest-img">
+        <div class="header-titles">
+          <span class="org-name font-sinhala">PAST PUPILS' ASSOCIATION (PPA)</span>
+          <span class="school-name font-sinhala">Kalugamuwa Central College (කළුගමුව ම.ම.වි)</span>
+        </div>
+      </div>
+
+      <div class="top-bar-right">
+        <!-- Language Switcher Pills -->
+        <div class="lang-switcher" aria-label="Select Language">
+          <a href="index.html" class="lang-pill" title="English">EN</a>
+          <a href="ta.html" class="lang-pill" title="Tamil">தமிழ்</a>
+          <a href="si.html" class="lang-pill active" title="Sinhala">සිංහල</a>
+        </div>
+
+        <button id="audioBtn" class="audio-btn" type="button" aria-label="Music" title="Music">
+          <span class="sound-icon">♫</span>
+          <span id="audioText">Music</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION / INVITATION CARD -->
+    <section class="hero-section">
+      <div class="container">
+        
+        <div class="invitation-badge animate-fade-in font-sinhala">
+          <span class="pulse-dot"></span> Annual Blood Donation Camp 2026
+        </div>
+
+        <div class="title-wrap animate-fade-in delay-1">
+          <div class="heartbeat-icon-wrap" aria-hidden="true">
+            <svg class="heartbeat-svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <h1 class="main-title font-sinhala">
+            BLOOD DONATION<br>
+            <span class="highlight-text">Save Lives • ලේ දන් දෙමු</span>
+          </h1>
+        </div>
+
+        <p class="tagline animate-fade-in delay-2 font-sinhala">“ඔබේ ලේ බිංදුවක් තවත් කෙනෙකුගේ ජීවිතය බේරාගනීවි”</p>
+        <p class="collab-text animate-fade-in delay-2 font-sinhala">National Blood Transfusion Service (NBTS) සමඟ එක්ව පවත්වනු ලැබේ</p>
+
+        <!-- LIVE COUNTDOWN -->
+        <div class="countdown-wrap animate-fade-in delay-3">
+          <div class="countdown-label font-sinhala">COUNTDOWN TO DONATION DAY</div>
+          <div class="countdown" id="countdown">
+            <div class="cd-box">
+              <span class="cd-num" id="days">000</span>
+              <span class="cd-txt font-sinhala">Days</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-box">
+              <span class="cd-num" id="hours">00</span>
+              <span class="cd-txt font-sinhala">Hours</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-box">
+              <span class="cd-num" id="minutes">00</span>
+              <span class="cd-txt font-sinhala">Minutes</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-box">
+              <span class="cd-num" id="seconds">00</span>
+              <span class="cd-txt font-sinhala">Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 KEY EVENT DETAILS -->
+        <div class="details-grid animate-fade-in delay-4">
+          <div class="detail-card">
+            <div class="detail-icon">📅</div>
+            <div class="detail-label font-sinhala">DATE (දිනය)</div>
+            <div class="detail-value font-sinhala">Sunday, 06 Dec 2026</div>
+            <div class="detail-sub font-sinhala">ඉරිදා දවස</div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">⏰</div>
+            <div class="detail-label font-sinhala">TIME (වේලාව)</div>
+            <div class="detail-value font-sinhala">09:00 AM Onwards</div>
+            <div class="detail-sub font-sinhala">උදෑසන 9:00 සිට</div>
+          </div>
+
+          <a href="https://maps.app.goo.gl/GUvWcV5GCEfPuANm7" target="_blank" rel="noopener" class="detail-card detail-link" title="Open Map">
+            <div class="detail-icon">📍</div>
+            <div class="detail-label font-sinhala">VENUE (ස්ථානය)</div>
+            <div class="detail-value font-sinhala">College Main Hall</div>
+            <div class="detail-sub font-sinhala">Kalugamuwa Central College, Gelioya ↗</div>
+          </a>
+        </div>
+
+        <!-- QUICK ACTION BUTTONS -->
+        <div class="action-buttons animate-fade-in delay-4">
+          <a href="#applicationSection" class="btn btn-red btn-pulse font-sinhala">Donor කෙනෙක් විදියට Register වෙන්න ↓</a>
+          <a href="https://maps.app.goo.gl/GUvWcV5GCEfPuANm7" target="_blank" rel="noopener" class="btn btn-white font-sinhala">Location Map</a>
+          <button id="calendarBtn" type="button" class="btn btn-white font-sinhala">Add to Calendar</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY GUIDE SECTION -->
+    <section class="section eligibility-section" id="eligibilitySection">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="sub-badge font-sinhala">Eligibility Guidelines</span>
+          <h2 class="font-sinhala">Who Can Give Blood? (රුධිරය පරිත්‍යාග කිරීමට සුදුසුකම් ලබන්නේ කවුද?)</h2>
+          <p class="font-sinhala">රුධිරය පරිත්‍යාග කිරීමට පෙර මෙම සරල කරුණු පරීක්ෂා කර බලන්න:</p>
+        </div>
+
+        <div class="eligibility-grid">
+          <div class="elig-card reveal">
+            <div class="elig-icon">✓</div>
+            <h3 class="font-sinhala">Age (වයස)</h3>
+            <p class="font-sinhala"><strong>අවුරුදු 18 සිට 55 දක්වා</strong><br>(නිරන්තරයෙන් රුධිරය පරිත්‍යාග කරන්නන්ට අවුරුදු 60 දක්වා පරිත්‍යාග කළ හැකිය)</p>
+          </div>
+
+          <div class="elig-card reveal">
+            <div class="elig-icon">✓</div>
+            <h3 class="font-sinhala">Weight (ශරීර බර)</h3>
+            <p class="font-sinhala"><strong>අවම වශයෙන් කිලෝග්‍රෑම් 50ක් (110 lbs)</strong><br>ඔබේ සෞඛ්‍ය ආරක්ෂාව වෙනුවෙන්</p>
+          </div>
+
+          <div class="elig-card reveal">
+            <div class="elig-icon">✓</div>
+            <h3 class="font-sinhala">Good Health (සෞඛ්‍ය තත්ත්වය)</h3>
+            <p class="font-sinhala"><strong>සම්පූර්ණ නිරෝගීභාවය</strong><br>උණ, සෙම්ප්‍රතිශ්‍යාව හෝ කැස්ස නොමැතිව සම්පූර්ණයෙන්ම නිරෝගීව සිටිය යුතුය.</p>
+          </div>
+
+          <div class="elig-card reveal">
+            <div class="elig-icon">✓</div>
+            <h3 class="font-sinhala">4 Months Gap (පරිත්‍යාග අතර කාල පරතරය)</h3>
+            <p class="font-sinhala"><strong>අවම වශයෙන් මාස 4ක්</strong><br>ඔබේ පෙර රුධිර පරිත්‍යාගයේ සිට අවම වශයෙන් මාස 4ක් ගතවී තිබිය යුතුය.</p>
+          </div>
+
+          <div class="elig-card reveal">
+            <div class="elig-icon">✓</div>
+            <h3 class="font-sinhala">Before Coming (පැමිණීමට පෙර)</h3>
+            <p class="font-sinhala"><strong>හොඳ නින්දක් (පැය 6–8)</strong><br>ආහාර වේලක් ගෙන හොඳින් ජලය පානය කරන්න (නිරාහාරව නොපැමිණෙන්න).</p>
+          </div>
+
+          <div class="elig-card reveal">
+            <div class="elig-icon">✓</div>
+            <h3 class="font-sinhala">ID Card (රැගෙන ආ යුතු දේ)</h3>
+            <p class="font-sinhala"><strong>ඡායාරූපයක් සහිත මුල් හැඳුනුම්පත</strong><br>ජාතික හැඳුනුම්පත (NIC) හෝ රියදුරු බලපත්‍රය (Driving License) රැගෙන එන්න.</p>
+          </div>
+        </div>
+
+        <!-- WHO SHOULD WAIT NOTE -->
+        <div class="defer-note reveal font-sinhala">
+          <strong>⚠️ කරුණාකර රැඳී සිටින්න:</strong>
+          පසුගිය මාස 6 ඇතුළත පච්චයක් (Tattoo) හෝ සිරුර සිදුරු කිරීමක් (Body piercing) සිදු කර ඇත්නම්, දැනට ප්‍රතිජීවක ඖෂධ (Antibiotics) ලබා ගන්නේ නම්, හෝ ගර්භණී / මව්කිරි දෙන මවක් නම් තාවකාලිකව රුධිරය පරිත්‍යාග කළ නොහැක.
+        </div>
+      </div>
+    </section>
+
+    <!-- DONOR APPLICATION FORM (SUPER MOBILE FRIENDLY) -->
+    <section class="section app-section" id="applicationSection">
+      <div class="container">
+        
+        <div class="section-header reveal">
+          <span class="sub-badge font-sinhala">Online Registration</span>
+          <h2 class="font-sinhala">Donor Application Form (ලියාපදිංචි වීමේ අයදුම්පත)</h2>
+          <p class="font-sinhala">ඔබගේ විස්තර සම්පූර්ණ කර ලියාපදිංචිය තහවුරු කරගන්න:</p>
+        </div>
+
+        <div class="form-card reveal">
+          <form id="donorForm" novalidate>
+
+            <!-- PLEDGE CONFIRMATION -->
+            <div class="pledge-box" id="pledgeContainer">
+              <label class="pledge-label" for="pledgeCheck">
+                <input type="checkbox" id="pledgeCheck" name="pledge" checked required>
+                <span class="pledge-chk-custom" aria-hidden="true">✓</span>
+                <span class="pledge-text font-sinhala">
+                  <strong>Yes, I'm eligible and I'll participate!</strong>
+                  <small>මම මූලික සුදුසුකම් සපුරා ඇති අතර, දෙසැම්බර් 06 වන දින රුධිරය පරිත්‍යාග කිරීමට සහභාගී වෙමි.</small>
+                </span>
+              </label>
+              <div class="error-msg font-sinhala" id="pledgeError">කරුණාකර තහවුරු කරන්න.</div>
+            </div>
+
+            <!-- PROPER ORDER FORM FIELDS -->
+            <div class="fields-grid">
+
+              <!-- 1. FULL NAME -->
+              <div class="field-wrap full-width" id="wrap-fullName">
+                <label for="fullName" class="font-sinhala">Full Name (සම්පූර්ණ නම) <span class="req">*</span></label>
+                <input 
+                  type="text" 
+                  id="fullName" 
+                  name="fullName" 
+                  placeholder="e.g. Nuwan Perera / M.S.M. Ramjan" 
+                  required 
+                  autocomplete="name" 
+                  autocapitalize="words" 
+                  spellcheck="false"
+                >
+                <div class="error-msg font-sinhala" id="nameError">කරුණාකර ඔබගේ නම ඇතුළත් කරන්න.</div>
+              </div>
+
+              <!-- 2. GENDER -->
+              <div class="field-wrap half-width" id="wrap-gender">
+                <label class="font-sinhala">Gender (ස්ත්‍රී / පුරුෂ) <span class="req">*</span></label>
+                <div class="gender-options">
+                  <label class="gender-radio">
+                    <input type="radio" name="gender" value="Male (පුරුෂ)" checked>
+                    <span class="gender-pill-box font-sinhala">
+                      <span class="gender-dot"></span> Male (පුරුෂ)
+                    </span>
+                  </label>
+                  <label class="gender-radio">
+                    <input type="radio" name="gender" value="Female (ස්ත්‍රී)">
+                    <span class="gender-pill-box font-sinhala">
+                      <span class="gender-dot"></span> Female (ස්ත්‍රී)
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 3. DATE OF BIRTH -->
+              <div class="field-wrap half-width" id="wrap-dob">
+                <div class="label-row">
+                  <label for="dob" class="font-sinhala">Date of Birth (DOB) <span class="req">*</span></label>
+                  <span class="age-badge" id="ageBadge">Age: —</span>
+                </div>
+                <input 
+                  type="date" 
+                  id="dob" 
+                  name="dob" 
+                  value="2000-01-15" 
+                  required 
+                  max="2008-12-06" 
+                  min="1960-01-01"
+                >
+                <div class="error-msg font-sinhala" id="dobError">වලංගු උපන් දිනයක් ඇතුළත් කරන්න (Age must be 18 to 60).</div>
+              </div>
+
+              <!-- 4. CONTACT NUMBER -->
+              <div class="field-wrap half-width" id="wrap-contact">
+                <label for="contactNumber" class="font-sinhala">Contact Number (Phone) <span class="req">*</span></label>
+                <input 
+                  type="tel" 
+                  id="contactNumber" 
+                  name="contactNumber" 
+                  inputmode="tel" 
+                  autocomplete="tel" 
+                  placeholder="e.g. 077 123 4567" 
+                  required
+                >
+                <div class="error-msg font-sinhala" id="contactError">කරුණාකර Contact Number එකක් ඇතුළත් කරන්න.</div>
+              </div>
+
+              <!-- 5. WHATSAPP NUMBER -->
+              <div class="field-wrap half-width" id="wrap-whatsapp">
+                <div class="label-row">
+                  <label for="whatsappNumber" class="font-sinhala">WhatsApp Number <span class="req">*</span></label>
+                  <label class="same-chk" for="samePhone">
+                    <input type="checkbox" id="samePhone">
+                    <span class="font-sinhala">Same as Contact</span>
+                  </label>
+                </div>
+                <input 
+                  type="tel" 
+                  id="whatsappNumber" 
+                  name="whatsappNumber" 
+                  inputmode="tel" 
+                  autocomplete="tel" 
+                  placeholder="e.g. 077 123 4567" 
+                  required
+                >
+                <div class="error-msg font-sinhala" id="whatsappError">කරුණාකර WhatsApp Number එකක් ඇතුළත් කරන්න.</div>
+              </div>
+
+              <!-- 6. RESIDENTIAL ADDRESS -->
+              <div class="field-wrap full-width" id="wrap-address">
+                <label for="address" class="font-sinhala">Address / Town (ලිපිනය / නගරය) <span class="req">*</span></label>
+                <input 
+                  type="text" 
+                  id="address" 
+                  name="address" 
+                  autocomplete="street-address" 
+                  placeholder="e.g. Main Street, Gelioya / Kalugamuwa" 
+                  required 
+                >
+                <div class="error-msg font-sinhala" id="addressError">කරුණාකර ඔබගේ ලිපිනය හෝ නගරය ඇතුළත් කරන්න.</div>
+              </div>
+
+              <!-- 7. BLOOD GROUP (OPTIONAL) -->
+              <div class="field-wrap half-width">
+                <label for="bloodGroup" class="font-sinhala">Blood Group <small>(දන්නේ නම් පමණක්)</small></label>
+                <select id="bloodGroup" name="bloodGroup" class="font-sinhala">
+                  <option value="Not Sure / Test on-site">Not Sure / Test on-site (Free)</option>
+                  <option value="A+">A Positive (A+)</option>
+                  <option value="A-">A Negative (A-)</option>
+                  <option value="B+">B Positive (B+)</option>
+                  <option value="B-">B Negative (B-)</option>
+                  <option value="O+">O Positive (O+)</option>
+                  <option value="O-">O Negative (O-) Universal</option>
+                  <option value="AB+">AB Positive (AB+)</option>
+                  <option value="AB-">AB Negative (AB-)</option>
+                </select>
+              </div>
+
+              <!-- 8. PREFERRED TIME SLOT -->
+              <div class="field-wrap half-width">
+                <label for="timeSlot" class="font-sinhala">Time Slot (කැමති වේලාව)</label>
+                <select id="timeSlot" name="timeSlot" class="font-sinhala">
+                  <option value="Morning (09:00 AM – 11:30 AM)">Morning (09:00 AM – 11:30 AM)</option>
+                  <option value="Midday (11:30 AM – 01:30 PM)">Midday (11:30 AM – 01:30 PM)</option>
+                  <option value="Afternoon (01:30 PM – 03:30 PM)">Afternoon (01:30 PM – 03:30 PM)</option>
+                </select>
+              </div>
+
+            </div>
+
+            <!-- SUBMIT BUTTON (ONLY WHATSAPP SUBMISSION) -->
+            <div class="form-submit-row">
+              <button type="submit" id="btnSubmitWhatsApp" class="btn btn-whatsapp btn-touch-lg btn-block font-sinhala">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.02L7.55 18.84L4.44 19.65L5.27 16.62L5.07 16.3C4.27 15.02 3.81 13.5 3.81 11.92C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
+                </svg>
+                <span>WhatsApp හරහා Register වෙන්න</span>
+              </button>
+            </div>
+
+            <!-- SUBMIT FEEDBACK NOTICE -->
+            <div id="submitNotice" class="submit-notice-box font-sinhala" style="display: none;">
+              <div class="submit-notice-inner">
+                <span class="submit-notice-icon">✓</span>
+                <span class="submit-notice-text">විස්තර සූදානම්! සම්බන්ධීකාරක එම්.එස්.එම්. රම්ජාන් මහතා වෙත ඔබගේ ලියාපදිංචිය යැවීමට WhatsApp විවෘත වේ...</span>
+              </div>
+            </div>
+
+            <div class="contact-coordinator font-sinhala">
+              Inquiries: <strong>Mr. M.S.M. Ramjan</strong> (Coordinator) — <a href="tel:+94775138838">+94 77 513 8838</a>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE FLOATING ACTION PILL -->
+  <aside class="mobile-floating-bar" id="mobileFloatBar" aria-label="Mobile quick actions">
+    <a href="#applicationSection" class="float-btn float-register font-sinhala">
+      <span class="float-icon">🩸</span> Register Now
+    </a>
+    <a href="https://maps.app.goo.gl/GUvWcV5GCEfPuANm7" target="_blank" rel="noopener" class="float-btn float-map font-sinhala" title="Open Map">
+      <span class="float-icon">📍</span> Map
+    </a>
+  </aside>
+
+  <!-- INKSPIRE PRINTS & DIMENSION BRANDING FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      
+      <div class="footer-intro reveal">
+        <p class="footer-kicker font-sinhala">Crafted by</p>
+        <h3 class="footer-brand-title font-sinhala">Inkspire Prints & Dimension</h3>
+        <p class="footer-desc font-sinhala">Creative digital cards, wedding stationery, event printing & personalised display frames.</p>
+      </div>
+
+      <div class="footer-brands-grid">
+        <!-- Inkspire Prints -->
+        <div class="brand-box reveal">
+          <img src="assets/inkspire-white.png" alt="Inkspire Prints" class="brand-img" loading="lazy">
+          <p class="brand-text font-sinhala">Digital Invitations • Event Banners • Certificates • Photoshoots</p>
+        </div>
+
+        <!-- Dimension -->
+        <div class="brand-box reveal">
+          <img src="assets/dimension-white.png" alt="Dimension" class="brand-img" loading="lazy">
+          <p class="brand-text font-sinhala">Personalised Frames • Mementos • Acrylic Shields • Display Keepsakes</p>
+        </div>
+      </div>
+
+      <!-- Contact details -->
+      <div class="footer-contact-bar reveal font-sinhala">
+        <span>📞 <a href="tel:+94772949758">+94 77 29 49 758</a></span>
+        <span class="dot">•</span>
+        <span>📍 1st Floor, 22 Daulagala Rd, Gelioya 20620</span>
+        <span class="dot">•</span>
+        <a href="https://wa.me/94772949758?text=Hello%20Inkspire%20Prints%2C%20I%20am%20interested%20in%20your%20digital%20invitation%20and%20printing%20services." target="_blank" rel="noopener" class="footer-wa-link">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="footer-copy font-sinhala">
+        <p>© 2026 Past Pupils' Association • Kalugamuwa Central College</p>
+        <p>Digital Invitation powered by Inkspire Prints • <a href="admin.html" class="footer-admin-link" title="Coordinator Admin Portal">🔒 Coordinator Portal</a></p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

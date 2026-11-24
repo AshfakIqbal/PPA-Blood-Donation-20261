@@ -1,0 +1,1552 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+  <meta name="theme-color" content="#8f0e1f">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Coordinator Admin Portal | KCC Blood Donation Camp 2026</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ==========================================================================
+       ADMIN PORTAL SPECIFIC STYLES
+       ========================================================================== */
+    body.admin-body {
+      background: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Passcode Lock Screen */
+    .admin-auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(circle at 50% 20%, #fff1f2 0%, #f1f5f9 80%);
+    }
+
+    .auth-card {
+      background: #ffffff;
+      border: 1.5px solid var(--color-red-border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .auth-crests {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .auth-crests img {
+      height: 48px;
+      width: auto;
+    }
+
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .auth-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .pin-input-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .pin-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.2em;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .pin-input:focus {
+      border-color: var(--color-red);
+      box-shadow: 0 0 0 3px rgba(201, 24, 43, 0.15);
+    }
+
+    .auth-error {
+      color: var(--color-red);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: none;
+      margin-bottom: 12px;
+    }
+
+    .auth-hint {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    /* Main Admin Dashboard Container */
+    .admin-dashboard {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .admin-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-brand img {
+      height: 38px;
+    }
+
+    .admin-brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+
+    .admin-brand-text p {
+      font-size: 0.72rem;
+      color: var(--color-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-admin {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-dark);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-admin:hover {
+      border-color: var(--color-red);
+      color: var(--color-red);
+      transform: translateY(-1px);
+    }
+
+    .btn-admin-primary {
+      background: var(--color-red);
+      color: #ffffff;
+      border-color: var(--color-red);
+    }
+
+    .btn-admin-primary:hover {
+      background: var(--color-red-dark);
+      color: #ffffff;
+    }
+
+    .btn-admin-green {
+      background: #16a34a;
+      color: #ffffff;
+      border-color: #16a34a;
+    }
+
+    .btn-admin-green:hover {
+      background: #15803d;
+      color: #ffffff;
+    }
+
+    /* KPI Summary Row */
+    .admin-content {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--border-color);
+    }
+
+    .kpi-card.kpi-red::before { background: var(--color-red); }
+    .kpi-card.kpi-blue::before { background: #3b82f6; }
+    .kpi-card.kpi-amber::before { background: #f59e0b; }
+    .kpi-card.kpi-green::before { background: #10b981; }
+
+    .kpi-title {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .kpi-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .kpi-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: var(--text-dark);
+    }
+
+    .badge-red { background: #fee2e2; color: #991b1b; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-amber { background: #fef3c7; color: #92400e; }
+
+    /* Filters Bar */
+    .filter-bar {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-wrap {
+      flex: 1 1 260px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 14px 9px 34px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      font-size: 0.88rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--color-red);
+      box-shadow: 0 0 0 2px rgba(201, 24, 43, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 0.85rem;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-family: inherit;
+      background: #ffffff;
+      color: var(--text-dark);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .filter-select:focus {
+      border-color: var(--color-red);
+    }
+
+    /* Registry Table / Cards */
+    .registry-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .registry-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fbfcfd;
+    }
+
+    .registry-count {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .cloud-status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+
+    .status-dot.active {
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    /* Table for desktop */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .donor-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.86rem;
+    }
+
+    .donor-table th {
+      background: #f8fafc;
+      padding: 12px 14px;
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .donor-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-dark);
+      vertical-align: middle;
+    }
+
+    .donor-table tr:hover td {
+      background: #fcfdfe;
+    }
+
+    .pass-tag {
+      font-family: monospace;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--color-red);
+      background: var(--color-red-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .donor-name-cell {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .contact-cell a {
+      color: inherit;
+      font-weight: 600;
+    }
+
+    .contact-cell a:hover {
+      color: var(--color-red);
+      text-decoration: underline;
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .action-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+    }
+
+    .action-icon-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-wa-icon:hover {
+      background: #25d366;
+      border-color: #25d366;
+      color: #ffffff;
+    }
+
+    .btn-call-icon:hover {
+      background: #3b82f6;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    .btn-del-icon:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+
+    /* Mobile Cards View (displayed <= 768px) */
+    .mobile-donor-cards {
+      display: none;
+      padding: 12px;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .m-donor-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .m-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .m-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+
+    .m-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f1f5f9;
+      margin-top: 4px;
+    }
+
+    .m-act-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--border-color);
+      background: #f8fafc;
+      color: var(--text-dark);
+    }
+
+    .m-act-wa {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #bbf7d0;
+    }
+
+    .m-act-call {
+      background: #dbeafe;
+      color: #1e40af;
+      border-color: #bfdbfe;
+    }
+
+    /* Modal Backdrop */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.is-active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .modal-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--color-red);
+    }
+
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 48px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .table-responsive {
+        display: none;
+      }
+
+      .mobile-donor-cards {
+        display: flex;
+      }
+
+      .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .admin-nav-inner {
+        padding: 10px 14px;
+      }
+
+      .admin-content {
+        padding: 16px 14px 40px;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        justify-content: space-between;
+      }
+
+      .filter-select {
+        flex: 1;
+      }
+    }
+
+    /* Print styles for physical camp checklist */
+    @media print {
+      body.admin-body {
+        background: #ffffff;
+      }
+
+      .admin-header, .kpi-grid, .filter-bar, .modal-overlay, .registry-header, .table-actions {
+        display: none !important;
+      }
+
+      .table-responsive {
+        display: block !important;
+      }
+
+      .mobile-donor-cards {
+        display: none !important;
+      }
+
+      .admin-content {
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .registry-card {
+        border: none;
+        box-shadow: none;
+      }
+
+      .print-header {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #000000;
+        padding-bottom: 10px;
+      }
+
+      .donor-table th, .donor-table td {
+        border: 1px solid #000000;
+        padding: 8px 6px;
+        font-size: 0.72rem;
+      }
+    }
+
+    .print-header {
+      display: none;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================================================
+       1. PASSCODE BARRIER SCREEN
+       ========================================================================== -->
+  <div class="admin-auth-screen" id="authScreen">
+    <div class="auth-card">
+      <div class="auth-crests">
+        <img src="assets/kcc-school-crest.png" alt="KCC Crest">
+        <img src="assets/ppa-kcc-shield-large.png" alt="PPA KCC Crest">
+      </div>
+      <h2 class="auth-title">Coordinator Admin Portal</h2>
+      <p class="auth-sub">Annual Blood Donation Camp 2026 • PPA Kalugamuwa Central College</p>
+
+      <form id="authForm">
+        <div class="pin-input-wrap">
+          <input 
+            type="password" 
+            id="pinInput" 
+            class="pin-input" 
+            placeholder="••••••" 
+            maxlength="16" 
+            autocomplete="current-password" 
+            required 
+            autofocus
+          >
+        </div>
+        <div class="auth-error" id="authError">Incorrect Passcode. Please try again.</div>
+
+        <button type="submit" class="btn btn-red btn-touch-lg" style="width: 100%;">
+          <span>Unlock Donor Registry</span>
+        </button>
+      </form>
+
+      <p class="auth-hint">🔒 Authorized access for PPA Event Coordinators only.<br>Default Passcode: <code>kcc2026</code></p>
+      <div style="margin-top: 18px;">
+        <a href="index.html" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: underline;">← Back to Public Digital Invitation</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. UNLOCKED ADMIN DASHBOARD
+       ========================================================================== -->
+  <div class="admin-dashboard" id="adminDashboard">
+
+    <!-- Print Header (Physical Camp Roster) -->
+    <div class="print-header">
+      <h2>PAST PUPILS' ASSOCIATION • KALUGAMUWA CENTRAL COLLEGE</h2>
+      <h3>Annual Blood Donation Camp 2026 — Official Donor Attendance Register</h3>
+      <p>Date: Sunday, 06 Dec 2026 | Venue: College Main Hall | In collaboration with NBTS</p>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="admin-header">
+      <div class="admin-nav-inner">
+        <div class="admin-brand">
+          <img src="assets/kcc-school-crest.png" alt="KCC Crest">
+          <img src="assets/ppa-kcc-shield-large.png" alt="PPA Crest">
+          <div class="admin-brand-text">
+            <h1>PPA KCC Blood Donation Camp 2026</h1>
+            <p>Coordinator Admin Dashboard</p>
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <button type="button" class="btn-admin" id="btnSyncRefresh" title="Refresh & Pull latest donors">
+            <span>🔄 Sync Data</span>
+          </button>
+          <button type="button" class="btn-admin btn-admin-primary" id="btnOpenAddModal">
+            <span>➕ Add Donor</span>
+          </button>
+          <button type="button" class="btn-admin btn-admin-green" id="btnExportCSV" title="Export to Excel / CSV">
+            <span>📥 Export Excel</span>
+          </button>
+          <button type="button" class="btn-admin" onclick="window.print()" title="Print master attendance sheet">
+            <span>🖨️ Print</span>
+          </button>
+          <button type="button" class="btn-admin" id="btnOpenCloudModal" title="Configure Google Sheets Cloud Webhook">
+            <span>⚙️ Google Sheet</span>
+          </button>
+          <button type="button" class="btn-admin" id="btnLogout" style="color: var(--color-red);" title="Lock Dashboard">
+            <span>🔒 Log Out</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="admin-content">
+
+      <!-- KPI Metrics Overview -->
+      <section class="kpi-grid">
+        <!-- 1. Total Donors -->
+        <div class="kpi-card kpi-red">
+          <div class="kpi-title">Total Registered Donors</div>
+          <div class="kpi-value" id="kpiTotal">0</div>
+          <div class="kpi-sub">
+            <span>Target: <strong id="kpiTarget">100</strong> donors</span>
+            <span class="badge-pill badge-red" id="kpiProgress">0% Goal</span>
+          </div>
+        </div>
+
+        <!-- 2. Gender Split -->
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-title">Gender Distribution</div>
+          <div class="kpi-value"><span id="kpiMale">0</span> <small style="font-size: 1rem; color: #64748b;">M</small> / <span id="kpiFemale">0</span> <small style="font-size: 1rem; color: #64748b;">F</small></div>
+          <div class="kpi-sub">
+            <span class="badge-pill badge-blue" id="kpiMalePercent">0% Male</span>
+            <span class="badge-pill" id="kpiFemalePercent">0% Female</span>
+          </div>
+        </div>
+
+        <!-- 3. Blood Groups Breakdown -->
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-title">Top Blood Groups</div>
+          <div class="kpi-sub" id="kpiBloodGroups" style="margin-top: 6px; gap: 4px;">
+            <span class="badge-pill badge-amber">Loading...</span>
+          </div>
+        </div>
+
+        <!-- 4. Time Slots Breakdown -->
+        <div class="kpi-card kpi-green">
+          <div class="kpi-title">Preferred Slots</div>
+          <div class="kpi-sub" id="kpiSlots" style="margin-top: 6px; gap: 4px;">
+            <span class="badge-pill badge-green">Morning: 0</span>
+            <span class="badge-pill">Midday: 0</span>
+            <span class="badge-pill">Afternoon: 0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters & Search Bar -->
+      <section class="filter-bar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search by name, phone, address, or Pass ID...">
+        </div>
+
+        <div class="filter-group">
+          <select id="filterBloodGroup" class="filter-select" aria-label="Filter by Blood Group">
+            <option value="ALL">All Blood Groups</option>
+            <option value="A+">A Positive (A+)</option>
+            <option value="A-">A Negative (A-)</option>
+            <option value="B+">B Positive (B+)</option>
+            <option value="B-">B Negative (B-)</option>
+            <option value="O+">O Positive (O+)</option>
+            <option value="O-">O Negative (O-)</option>
+            <option value="AB+">AB Positive (AB+)</option>
+            <option value="AB-">AB Negative (AB-)</option>
+            <option value="Not Sure">Not Sure / Test on-site</option>
+          </select>
+
+          <select id="filterSlot" class="filter-select" aria-label="Filter by Time Slot">
+            <option value="ALL">All Time Slots</option>
+            <option value="Morning">Morning (09:00 – 11:30)</option>
+            <option value="Midday">Midday (11:30 – 01:30)</option>
+            <option value="Afternoon">Afternoon (01:30 – 03:30)</option>
+          </select>
+
+          <select id="filterGender" class="filter-select" aria-label="Filter by Gender">
+            <option value="ALL">All Genders</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+
+          <button type="button" id="btnResetFilters" class="btn-admin" style="padding: 7px 10px;">Reset</button>
+        </div>
+      </section>
+
+      <!-- Registry Data Card -->
+      <section class="registry-card">
+        <div class="registry-header">
+          <div class="registry-count" id="registryCountText">Registered Donors (0)</div>
+          <div class="cloud-status-indicator">
+            <span class="status-dot" id="cloudStatusDot"></span>
+            <span id="cloudStatusText">Local Storage</span>
+          </div>
+        </div>
+
+        <!-- Desktop / Tablet Table View -->
+        <div class="table-responsive">
+          <table class="donor-table">
+            <thead>
+              <tr>
+                <th>Pass ID</th>
+                <th>Full Name</th>
+                <th>Gender & Age</th>
+                <th>Blood Group</th>
+                <th>Contact Phone</th>
+                <th>WhatsApp</th>
+                <th>Address / Town</th>
+                <th>Preferred Slot</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="donorTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards View (Realme 13 Pro & Mobile phones) -->
+        <div class="mobile-donor-cards" id="mobileCardsContainer">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <div class="empty-state-icon">🩸</div>
+          <h4 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--text-dark); margin-bottom: 4px;">No Donors Registered Yet</h4>
+          <p style="font-size: 0.85rem;">Registrations from your website will automatically appear here.</p>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ==========================================================================
+       3. MODAL: GOOGLE SHEETS CLOUD SYNC CONFIGURATION
+       ========================================================================== -->
+  <div class="modal-overlay" id="cloudModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h3 class="modal-title">Google Sheets Cloud Webhook</h3>
+      <p class="modal-sub">Link your private Google Sheet to receive live donor submissions automatically from GitHub Pages.</p>
+
+      <form id="cloudConfigForm">
+        <div class="form-group">
+          <label for="googleSheetUrlInput">Google Apps Script Web App URL</label>
+          <input 
+            type="url" 
+            id="googleSheetUrlInput" 
+            placeholder="https://script.google.com/macros/s/AKfycb.../exec"
+          >
+          <small style="color: var(--text-muted); font-size: 0.74rem; display: block; margin-top: 4px;">
+            Created using the included <code>google-apps-script.js</code> file.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="adminPinInput">Change Admin Passcode (Optional)</label>
+          <input 
+            type="text" 
+            id="adminPinInput" 
+            placeholder="kcc2026"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="targetDonorsInput">Target Donor Goal</label>
+          <input 
+            type="number" 
+            id="targetDonorsInput" 
+            value="100" 
+            min="10" 
+            max="1000"
+          >
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 0.78rem; line-height: 1.5; color: var(--text-body);">
+          <strong>⚡ Quick Setup:</strong>
+          <ol style="margin-left: 18px; margin-top: 4px;">
+            <li>Create a new Google Sheet at <code>sheets.new</code>.</li>
+            <li>Click <strong>Extensions > Apps Script</strong>, paste <code>google-apps-script.js</code>.</li>
+            <li>Click <strong>Deploy > New Deployment > Web App</strong> (Set access: <em>Anyone</em>).</li>
+            <li>Paste your Web App URL above and click Save.</li>
+          </ol>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-admin" id="btnCloseCloudModal">Cancel</button>
+          <button type="button" class="btn-admin" id="btnPushLocalToCloud" style="background: #f1f5f9;">Push Local to Cloud</button>
+          <button type="submit" class="btn-admin btn-admin-primary">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       4. MODAL: MANUAL ADD DONOR
+       ========================================================================== -->
+  <div class="modal-overlay" id="addDonorModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h3 class="modal-title">Add Donor Manually</h3>
+      <p class="modal-sub">Add a walk-in donor or phone call registration directly into the registry.</p>
+
+      <form id="manualDonorForm">
+        <div class="form-group">
+          <label for="manName">Full Name *</label>
+          <input type="text" id="manName" required placeholder="e.g. M.S.M. Ramjan / Kasun Perera">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label for="manGender">Gender *</label>
+            <select id="manGender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="manAge">Age (18–60) *</label>
+            <input type="number" id="manAge" required min="18" max="65" value="25">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label for="manContact">Contact Phone *</label>
+            <input type="tel" id="manContact" required placeholder="077 123 4567">
+          </div>
+          <div class="form-group">
+            <label for="manWhatsApp">WhatsApp Number</label>
+            <input type="tel" id="manWhatsApp" placeholder="077 123 4567">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="manAddress">Address / Town *</label>
+          <input type="text" id="manAddress" required placeholder="e.g. Gelioya / Kalugamuwa">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label for="manBloodGroup">Blood Group</label>
+            <select id="manBloodGroup">
+              <option value="Not Sure / Test on-site">Not Sure / Test on-site</option>
+              <option value="A+">A Positive (A+)</option>
+              <option value="A-">A Negative (A-)</option>
+              <option value="B+">B Positive (B+)</option>
+              <option value="B-">B Negative (B-)</option>
+              <option value="O+">O Positive (O+)</option>
+              <option value="O-">O Negative (O-)</option>
+              <option value="AB+">AB Positive (AB+)</option>
+              <option value="AB-">AB Negative (AB-)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="manSlot">Preferred Time Slot</label>
+            <select id="manSlot">
+              <option value="Morning (09:00 AM – 11:30 AM)">Morning (09:00 – 11:30)</option>
+              <option value="Midday (11:30 AM – 01:30 PM)">Midday (11:30 – 01:30)</option>
+              <option value="Afternoon (01:30 PM – 03:30 PM)">Afternoon (01:30 – 03:30)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-admin" id="btnCloseAddModal">Cancel</button>
+          <button type="submit" class="btn-admin btn-admin-primary">Save Donor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const authScreen = document.getElementById("authScreen");
+      const adminDashboard = document.getElementById("adminDashboard");
+      const authForm = document.getElementById("authForm");
+      const pinInput = document.getElementById("pinInput");
+      const authError = document.getElementById("authError");
+      const btnLogout = document.getElementById("btnLogout");
+
+      const kpiTotal = document.getElementById("kpiTotal");
+      const kpiTarget = document.getElementById("kpiTarget");
+      const kpiProgress = document.getElementById("kpiProgress");
+      const kpiMale = document.getElementById("kpiMale");
+      const kpiFemale = document.getElementById("kpiFemale");
+      const kpiMalePercent = document.getElementById("kpiMalePercent");
+      const kpiFemalePercent = document.getElementById("kpiFemalePercent");
+      const kpiBloodGroups = document.getElementById("kpiBloodGroups");
+      const kpiSlots = document.getElementById("kpiSlots");
+
+      const searchInput = document.getElementById("searchInput");
+      const filterBloodGroup = document.getElementById("filterBloodGroup");
+      const filterSlot = document.getElementById("filterSlot");
+      const filterGender = document.getElementById("filterGender");
+      const btnResetFilters = document.getElementById("btnResetFilters");
+
+      const registryCountText = document.getElementById("registryCountText");
+      const donorTableBody = document.getElementById("donorTableBody");
+      const mobileCardsContainer = document.getElementById("mobileCardsContainer");
+      const emptyState = document.getElementById("emptyState");
+      const cloudStatusDot = document.getElementById("cloudStatusDot");
+      const cloudStatusText = document.getElementById("cloudStatusText");
+
+      const btnSyncRefresh = document.getElementById("btnSyncRefresh");
+      const btnExportCSV = document.getElementById("btnExportCSV");
+      const btnOpenAddModal = document.getElementById("btnOpenAddModal");
+      const btnCloseAddModal = document.getElementById("btnCloseAddModal");
+      const addDonorModal = document.getElementById("addDonorModal");
+      const manualDonorForm = document.getElementById("manualDonorForm");
+
+      const btnOpenCloudModal = document.getElementById("btnOpenCloudModal");
+      const btnCloseCloudModal = document.getElementById("btnCloseCloudModal");
+      const cloudModal = document.getElementById("cloudModal");
+      const cloudConfigForm = document.getElementById("cloudConfigForm");
+      const googleSheetUrlInput = document.getElementById("googleSheetUrlInput");
+      const adminPinInput = document.getElementById("adminPinInput");
+      const targetDonorsInput = document.getElementById("targetDonorsInput");
+      const btnPushLocalToCloud = document.getElementById("btnPushLocalToCloud");
+
+      /* --------------------------------------------------------------------------
+         1. AUTHENTICATION & SESSION
+         -------------------------------------------------------------------------- */
+      function checkAuth() {
+        const config = window.DonorRegistry.getCloudConfig();
+        const authed = sessionStorage.getItem("kcc_admin_authed");
+        if (authed === "true") {
+          authScreen.style.display = "none";
+          adminDashboard.style.display = "flex";
+          initDashboard();
+        } else {
+          authScreen.style.display = "flex";
+          adminDashboard.style.display = "none";
+          pinInput.focus();
+        }
+      }
+
+      authForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const config = window.DonorRegistry.getCloudConfig();
+        const pin = pinInput.value.trim();
+        const correctPin = config.adminPin || window.DonorRegistry.DEFAULT_PIN;
+
+        if (pin === correctPin) {
+          sessionStorage.setItem("kcc_admin_authed", "true");
+          authError.style.display = "none";
+          checkAuth();
+        } else {
+          authError.style.display = "block";
+          pinInput.classList.add("has-error");
+          pinInput.focus();
+        }
+      });
+
+      btnLogout.addEventListener("click", () => {
+        if (confirm("Lock admin portal?")) {
+          sessionStorage.removeItem("kcc_admin_authed");
+          location.reload();
+        }
+      });
+
+      /* --------------------------------------------------------------------------
+         2. DASHBOARD RENDERING & FILTERING
+         -------------------------------------------------------------------------- */
+      let allDonors = [];
+
+      function getFilteredDonors() {
+        const query = searchInput.value.trim().toLowerCase();
+        const bgFilter = filterBloodGroup.value;
+        const slotFilter = filterSlot.value;
+        const genderFilter = filterGender.value;
+
+        return allDonors.filter(d => {
+          // Query
+          if (query) {
+            const str = `${d.name} ${d.contact} ${d.whatsapp} ${d.address} ${d.passId} ${d.bloodGroup}`.toLowerCase();
+            if (!str.includes(query)) return false;
+          }
+
+          // Blood Group
+          if (bgFilter !== "ALL") {
+            if (bgFilter === "Not Sure") {
+              if (!d.bloodGroup || (!d.bloodGroup.toLowerCase().includes("not sure") && !d.bloodGroup.toLowerCase().includes("test"))) {
+                return false;
+              }
+            } else {
+              if (!d.bloodGroup || !d.bloodGroup.includes(bgFilter)) return false;
+            }
+          }
+
+          // Slot
+          if (slotFilter !== "ALL") {
+            if (!d.slot || !d.slot.toLowerCase().includes(slotFilter.toLowerCase())) return false;
+          }
+
+          // Gender
+          if (genderFilter !== "ALL") {
+            const g = (d.gender || "").toLowerCase();
+            if (genderFilter === "Male" && (g.includes("female") || g.includes("ස්ත්‍රී") || g.includes("பெண்"))) return false;
+            if (genderFilter === "Female" && !(g.includes("female") || g.includes("ස්ත්‍රී") || g.includes("பெண்"))) return false;
+          }
+
+          return true;
+        });
+      }
+
+      function renderKPIs() {
+        const config = window.DonorRegistry.getCloudConfig();
+        const target = config.targetDonors || 100;
+        const stats = window.DonorRegistry.calculateStats(allDonors);
+
+        kpiTotal.textContent = stats.total;
+        kpiTarget.textContent = target;
+
+        const pct = target > 0 ? Math.round((stats.total / target) * 100) : 0;
+        kpiProgress.textContent = `${pct}% Goal`;
+
+        kpiMale.textContent = stats.male;
+        kpiFemale.textContent = stats.female;
+        const mPct = stats.total > 0 ? Math.round((stats.male / stats.total) * 100) : 0;
+        const fPct = stats.total > 0 ? (100 - mPct) : 0;
+        kpiMalePercent.textContent = `${mPct}% Male`;
+        kpiFemalePercent.textContent = `${fPct}% Female`;
+
+        // Blood Groups
+        kpiBloodGroups.innerHTML = "";
+        const groups = Object.keys(stats.bloodGroups);
+        if (groups.length === 0) {
+          kpiBloodGroups.innerHTML = '<span class="badge-pill">No data</span>';
+        } else {
+          groups.forEach(g => {
+            const count = stats.bloodGroups[g];
+            const span = document.createElement("span");
+            span.className = "badge-pill badge-amber";
+            span.textContent = `${g}: ${count}`;
+            kpiBloodGroups.appendChild(span);
+          });
+        }
+
+        // Slots
+        kpiSlots.innerHTML = `
+          <span class="badge-pill badge-green">Morning: ${stats.slots.Morning || 0}</span>
+          <span class="badge-pill">Midday: ${stats.slots.Midday || 0}</span>
+          <span class="badge-pill">Afternoon: ${stats.slots.Afternoon || 0}</span>
+        `;
+      }
+
+      function renderDonors() {
+        const filtered = getFilteredDonors();
+        registryCountText.textContent = `Registered Donors (${filtered.length} of ${allDonors.length})`;
+
+        if (filtered.length === 0) {
+          donorTableBody.innerHTML = "";
+          mobileCardsContainer.innerHTML = "";
+          emptyState.style.display = "block";
+          return;
+        }
+
+        emptyState.style.display = "none";
+
+        // Desktop Table
+        donorTableBody.innerHTML = filtered.map(d => {
+          const bgBadgeClass = (d.bloodGroup && (d.bloodGroup.includes("O") || d.bloodGroup.includes("A") || d.bloodGroup.includes("B"))) ? "badge-red" : "badge-pill";
+          const cleanPhone = (d.contact || "").replace(/[^0-9]/g, "");
+          const waPhone = (d.whatsapp || d.contact || "").replace(/[^0-9]/g, "");
+          const cleanWa = waPhone.startsWith("0") ? "94" + waPhone.substring(1) : waPhone;
+
+          return `
+            <tr>
+              <td><span class="pass-tag">${d.passId || "N/A"}</span></td>
+              <td class="donor-name-cell">${escapeHtml(d.name || "—")}</td>
+              <td>${escapeHtml(d.gender || "—")}, ${d.age || "—"} yrs</td>
+              <td><span class="badge-pill ${bgBadgeClass}">${escapeHtml(d.bloodGroup || "Not Sure")}</span></td>
+              <td class="contact-cell"><a href="tel:${cleanPhone}">📞 ${escapeHtml(d.contact || "—")}</a></td>
+              <td class="contact-cell">${waPhone ? `<a href="https://wa.me/${cleanWa}" target="_blank" rel="noopener">💬 ${escapeHtml(d.whatsapp)}</a>` : "—"}</td>
+              <td><small>${escapeHtml(d.address || "—")}</small></td>
+              <td><small>${escapeHtml(d.slot || "Morning")}</small></td>
+              <td>
+                <div class="table-actions">
+                  <a href="tel:${cleanPhone}" class="action-icon-btn btn-call-icon" title="Call Donor">📞</a>
+                  ${cleanWa ? `<a href="https://wa.me/${cleanWa}?text=Hello%20${encodeURIComponent(d.name)}%2C%20regarding%20PPA%20KCC%20Blood%20Donation%20Camp..." target="_blank" rel="noopener" class="action-icon-btn btn-wa-icon" title="Chat on WhatsApp">💬</a>` : ""}
+                  <button type="button" class="action-icon-btn btn-del-icon" onclick="window.confirmDeleteDonor('${d.passId}')" title="Delete">🗑️</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join("");
+
+        // Mobile Cards
+        mobileCardsContainer.innerHTML = filtered.map(d => {
+          const cleanPhone = (d.contact || "").replace(/[^0-9]/g, "");
+          const waPhone = (d.whatsapp || d.contact || "").replace(/[^0-9]/g, "");
+          const cleanWa = waPhone.startsWith("0") ? "94" + waPhone.substring(1) : waPhone;
+
+          return `
+            <div class="m-donor-card">
+              <div class="m-card-header">
+                <span class="pass-tag">${d.passId || "N/A"}</span>
+                <span class="badge-pill badge-red">${escapeHtml(d.bloodGroup || "Not Sure")}</span>
+              </div>
+              <div class="m-card-body">
+                <div><strong style="font-size: 1rem; color: var(--text-dark);">${escapeHtml(d.name || "—")}</strong></div>
+                <div style="color: var(--text-muted); font-size: 0.78rem;">${escapeHtml(d.gender || "—")}, ${d.age || "—"} yrs • ${escapeHtml(d.slot || "Morning")}</div>
+                <div style="margin-top: 4px;">📍 ${escapeHtml(d.address || "—")}</div>
+                <div style="font-size: 0.74rem; color: #94a3b8;">Registered: ${escapeHtml(d.registeredAt || "—")}</div>
+              </div>
+              <div class="m-card-actions">
+                <a href="tel:${cleanPhone}" class="m-act-btn m-act-call">📞 Call</a>
+                ${cleanWa ? `<a href="https://wa.me/${cleanWa}?text=Hello%20${encodeURIComponent(d.name)}%2C%20regarding%20PPA%20KCC%20Blood%20Donation..." target="_blank" rel="noopener" class="m-act-btn m-act-wa">💬 WhatsApp</a>` : ""}
+                <button type="button" class="m-act-btn" onclick="window.confirmDeleteDonor('${d.passId}')" style="color: var(--color-red); flex: 0 0 40px;">🗑️</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      window.confirmDeleteDonor = (passId) => {
+        if (confirm(`Are you sure you want to delete donor ${passId}?`)) {
+          allDonors = window.DonorRegistry.deleteDonor(passId);
+          renderKPIs();
+          renderDonors();
+        }
+      };
+
+      /* --------------------------------------------------------------------------
+         3. CLOUD SYNC & DATA LOADING
+         -------------------------------------------------------------------------- */
+      async function syncData(showAlert = true) {
+        const config = window.DonorRegistry.getCloudConfig();
+        cloudStatusDot.className = "status-dot";
+        cloudStatusText.textContent = "Syncing...";
+
+        // Load local records first
+        allDonors = window.DonorRegistry.getAllDonors();
+
+        if (config.googleSheetUrl && config.googleSheetUrl.startsWith("http")) {
+          cloudStatusDot.className = "status-dot active";
+          cloudStatusText.textContent = "Google Sheet Active";
+
+          try {
+            const url = `${config.googleSheetUrl}?action=getDonors&pin=${encodeURIComponent(config.adminPin || "kcc2026")}`;
+            const res = await fetch(url);
+            if (res.ok) {
+              const result = await res.json();
+              if (result.status === "success" && Array.isArray(result.donors)) {
+                // Merge cloud donors with local donors (avoid duplicates by passId)
+                const cloudDonors = result.donors;
+                const map = new Map();
+                // Add local donors
+                allDonors.forEach(d => map.set(d.passId, d));
+                // Add or update cloud donors
+                cloudDonors.forEach(d => map.set(d.passId, { ...map.get(d.passId), ...d }));
+
+                allDonors = Array.from(map.values());
+                window.DonorRegistry.saveAllDonors(allDonors);
+
+                if (showAlert) alert(`Synced successfully! Total donors: ${allDonors.length}`);
+              }
+            }
+          } catch (e) {
+            console.warn("Could not fetch from Google Sheet directly (CORS or network):", e);
+            cloudStatusText.textContent = "Local + Cloud Queue";
+            if (showAlert) alert("Loaded local registrations. Google Sheet webhook is connected for submissions.");
+          }
+        } else {
+          cloudStatusDot.className = "status-dot";
+          cloudStatusText.textContent = "Local Storage (No Sheet URL)";
+          if (showAlert) alert(`Loaded ${allDonors.length} local registration(s). Tip: Link a Google Sheet in settings to sync across devices.`);
+        }
+
+        renderKPIs();
+        renderDonors();
+      }
+
+      function initDashboard() {
+        const config = window.DonorRegistry.getCloudConfig();
+        googleSheetUrlInput.value = config.googleSheetUrl || "";
+        adminPinInput.value = config.adminPin || "kcc2026";
+        targetDonorsInput.value = config.targetDonors || 100;
+
+        syncData(false);
+      }
+
+      // Filter events
+      searchInput.addEventListener("input", renderDonors);
+      filterBloodGroup.addEventListener("change", renderDonors);
+      filterSlot.addEventListener("change", renderDonors);
+      filterGender.addEventListener("change", renderDonors);
+      btnResetFilters.addEventListener("click", () => {
+        searchInput.value = "";
+        filterBloodGroup.value = "ALL";
+        filterSlot.value = "ALL";
+        filterGender.value = "ALL";
+        renderDonors();
+      });
+
+      // Actions
+      btnSyncRefresh.addEventListener("click", () => syncData(true));
+      btnExportCSV.addEventListener("click", () => window.DonorRegistry.exportToCSV(getFilteredDonors()));
+
+      // Cloud Modal
+      btnOpenCloudModal.addEventListener("click", () => cloudModal.classList.add("is-active"));
+      btnCloseCloudModal.addEventListener("click", () => cloudModal.classList.remove("is-active"));
+      cloudConfigForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        window.DonorRegistry.setCloudConfig({
+          googleSheetUrl: googleSheetUrlInput.value.trim(),
+          adminPin: adminPinInput.value.trim() || "kcc2026",
+          targetDonors: parseInt(targetDonorsInput.value, 10) || 100
+        });
+        cloudModal.classList.remove("is-active");
+        syncData(true);
+      });
+
+      // Push Local to Cloud
+      btnPushLocalToCloud.addEventListener("click", async () => {
+        const config = window.DonorRegistry.getCloudConfig();
+        if (!config.googleSheetUrl || !config.googleSheetUrl.startsWith("http")) {
+          alert("Please enter a valid Google Apps Script Web App URL first.");
+          return;
+        }
+
+        const donors = window.DonorRegistry.getAllDonors();
+        if (donors.length === 0) {
+          alert("No local records to push.");
+          return;
+        }
+
+        if (!confirm(`Push ${donors.length} record(s) to your Google Sheet now?`)) return;
+
+        let sent = 0;
+        for (const d of donors) {
+          try {
+            await fetch(config.googleSheetUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(d)
+            });
+            sent++;
+          } catch (e) {
+            console.error("Error pushing donor:", e);
+          }
+        }
+        alert(`Successfully queued ${sent} donor record(s) to your Google Sheet! Check your Google Sheet to view rows.`);
+      });
+
+      // Manual Add Donor Modal
+      btnOpenAddModal.addEventListener("click", () => addDonorModal.classList.add("is-active"));
+      btnCloseAddModal.addEventListener("click", () => addDonorModal.classList.remove("is-active"));
+      manualDonorForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = {
+          name: document.getElementById("manName").value.trim(),
+          gender: document.getElementById("manGender").value,
+          age: parseInt(document.getElementById("manAge").value, 10) || 25,
+          contact: document.getElementById("manContact").value.trim(),
+          whatsapp: document.getElementById("manWhatsApp").value.trim() || document.getElementById("manContact").value.trim(),
+          address: document.getElementById("manAddress").value.trim(),
+          bloodGroup: document.getElementById("manBloodGroup").value,
+          slot: document.getElementById("manSlot").value
+        };
+
+        const passId = (window.DonorRegistry && typeof window.DonorRegistry.getNextPassId === "function")
+          ? window.DonorRegistry.getNextPassId()
+          : "#PPA-KCC-BDC-001";
+        await window.DonorRegistry.saveDonor(data, passId, "en");
+
+        addDonorModal.classList.remove("is-active");
+        manualDonorForm.reset();
+        allDonors = window.DonorRegistry.getAllDonors();
+        renderKPIs();
+        renderDonors();
+        alert(`Donor ${data.name} successfully registered with Pass ID ${passId}!`);
+      });
+
+      // Start check
+      checkAuth();
+    })();
+  </script>
+</body>
+</html>
